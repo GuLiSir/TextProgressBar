@@ -1,0 +1,14 @@
+<resources>
+
+
+    <declare-styleable name="TextProgressbar">
+        <attr name="progress_color" format="color" />
+        <attr name="progress_text_size" format="dimension" />
+        <attr name="progress_text_color" format="color" />
+        <attr name="progress_border_radius" format="dimension"/>
+        <attr name="progress_border_width" format="dimension"/>
+        <attr name="progress_border_color" format="color"/>
+        <attr name="progress_bg_color" format="color"/>
+    </declare-styleable>
+
+</resources>
