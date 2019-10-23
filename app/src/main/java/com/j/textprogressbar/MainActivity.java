@@ -28,7 +28,6 @@ public class MainActivity extends AppCompatActivity {
                 return s;
             }
         });
-//        showText();
     }
 
     private static final String TAG = "MainActivity";
