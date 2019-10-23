@@ -12,11 +12,12 @@
        android:background="#0000ff00"
        android:layout_centerHorizontal="true"
        android:layout_marginTop="30dp"
-       app:progress_border_color="#F51515"
-       app:progress_border_radius="10dp"
+       app:progress_border_color="#1C5B5B"
+       app:progress_border_radius="25dp"
+       app:progress_color ="#70D4D4"
        app:progress_text_size="15dp"
-       app:progress_text_color="#ffBB66"
-       app:progress_bg_color="#00BB66"
+       app:progress_text_color="#000066"
+       app:progress_bg_color="#FFFFFF"
        app:progress_border_width="1dp"
        android:layout_height="50dp" />
 

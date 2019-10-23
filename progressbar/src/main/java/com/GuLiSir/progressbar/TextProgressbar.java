@@ -111,6 +111,11 @@ public class TextProgressbar extends View {
      * 文字大小
      */
     private int textSize = DEFAULT_PROGRESS_TEXT_SIZE;
+    /**
+     * 控件填充背景,
+     * ***不能纯透明,否则计算不出重叠层***
+     */
+    private int progressBGColor = DEFAULT_PROGRESS_BG_COLOR;
 
 
     private ProgressTextObtainAble progressTextObtainAble;
@@ -124,7 +129,6 @@ public class TextProgressbar extends View {
 
         int progressColor = DEFAULT_PROGRESS_COLOR;
         int progressTextColor = DEFAULT_PROGRESS_TEXT_COLOR;
-        int progressBGColor = DEFAULT_PROGRESS_BG_COLOR;
         if (attrs != null) {
             TypedArray typedArray = getContext().obtainStyledAttributes(attrs, R.styleable.TextProgressbar);
             progressColor = typedArray.getColor(R.styleable.TextProgressbar_progress_color, DEFAULT_PROGRESS_COLOR);

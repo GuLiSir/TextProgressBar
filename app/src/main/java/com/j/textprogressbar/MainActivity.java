@@ -28,22 +28,23 @@ public class MainActivity extends AppCompatActivity {
                 return s;
             }
         });
-        showText();
+//        showText();
     }
 
     private static final String TAG = "MainActivity";
 
-    float[] step = new float[]{0.3f, 0.6f, 0.9f, 1.0f, 0.5f, 0.2f, 0.8f, 0.0f, 0.5f};
+    float[] step = new float[]{0.05f, 0.6f, 0.95f, 1.0f, 0.5f, 0.2f, 0.8f, 0.0f, 0.5f};
     int cur = 0;
 
     public void start(View view) {
         Log.i(TAG, "start: ");
+        showText();
         textProgressbar.setProgress(step[cur], true, 1000);
         cur++;
         if (cur >= step.length) {
             cur = 0;
         }
-        showText();
+
     }
 
     private void showText() {
