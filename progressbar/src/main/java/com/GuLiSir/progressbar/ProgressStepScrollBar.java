@@ -1,121 +1,1 @@
-package com.GuLiSir.progressbar;
-
-import android.content.Context;
-import android.content.res.TypedArray;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.util.AttributeSet;
-import android.view.View;
-
-public class ProgressStepScrollBa extends View {
-    public ProgressStepScrollBa(Context context) {
-        super(context);
-        init(null);
-    }
-
-    public ProgressStepScrollBa(Context context, AttributeSet attrs) {
-        super(context, attrs);
-        init(attrs);
-    }
-
-    public ProgressStepScrollBa(Context context, AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
-        init(attrs);
-    }
-
-    public ProgressStepScrollBa(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
-        init(attrs);
-    }
-
-
-    /**
-     * 进度画笔
-     */
-    private Paint paintCircleNormal;
-    /**
-     * 边框画笔
-     */
-    private Paint paintBorder;
-    private Paint paintText;
-
-    private int circleRadius = 20;
-    private int lineWidth = 20;
-    /**
-     * 总步数
-     */
-    private int totalStep = 10;
-
-    private int progressBGColor = DEFAULT_PROGRESS_BG_COLOR;
-    /**
-     * 描边颜色
-     */
-    private int borderColor = DEFAULT_BORDER_COLOR;
-    /**
-     * 文字大小
-     */
-    private int textSize = DEFAULT_PROGRESS_TEXT_SIZE;
-    //以下是定义默认值
-    public static final int DEFAULT_BORDER_COLOR = Color.BLACK;
-    public static final int DEFAULT_CIRCLE_NORMAL_COLOR = Color.RED;
-    public static final int DEFAULT_PROGRESS_TEXT_COLOR = Color.BLUE;
-    public static final int DEFAULT_PROGRESS_TEXT_SIZE = 30;
-    public static final int DEFAULT_PROGRESS_BG_COLOR = Color.WHITE;
-
-    private void init(AttributeSet attrs) {
-
-        int circleNormalColor = DEFAULT_CIRCLE_NORMAL_COLOR;
-        int progressTextColor = DEFAULT_PROGRESS_TEXT_COLOR;
-        if (attrs != null) {
-            // TODO: 2019/11/11
-//            TypedArray typedArray = getContext().obtainStyledAttributes(attrs, R.styleable.TextProgressbar);
-//            circleNormalColor = typedArray.getColor(R.styleable.TextProgressbar_progress_color, DEFAULT_CIRCLE_NORMAL_COLOR);
-//            progressTextColor = typedArray.getColor(R.styleable.TextProgressbar_progress_text_color, DEFAULT_PROGRESS_TEXT_COLOR);
-//            textSize = typedArray.getDimensionPixelSize(R.styleable.TextProgressbar_progress_text_size, DEFAULT_PROGRESS_TEXT_SIZE);
-//            borderColor = typedArray.getColor(R.styleable.TextProgressbar_progress_border_color, DEFAULT_BORDER_COLOR);
-//            progressBGColor = typedArray.getColor(R.styleable.TextProgressbar_progress_bg_color, DEFAULT_PROGRESS_BG_COLOR);
-//            typedArray.recycle();
-        }
-
-        paintBorder = new Paint();
-        paintBorder.setAntiAlias(true);
-        paintBorder.setColor(borderColor);
-        paintBorder.setStyle(Paint.Style.STROKE);
-
-
-        paintCircleNormal = new Paint();
-        paintCircleNormal.setAntiAlias(true);
-        paintCircleNormal.setColor(circleNormalColor);
-        paintCircleNormal.setStyle(Paint.Style.FILL);
-
-        paintText = new Paint();
-        paintText.setAntiAlias(true);
-        paintText.setColor(progressTextColor);
-        paintText.setTextSize(textSize);
-
-
-    }
-
-    @Override
-    protected void onDraw(Canvas canvas) {
-        super.onDraw(canvas);
-
-        int measuredHeight = getMeasuredHeight();
-        int measuredWidth = getMeasuredWidth();
-
-        float halfH = measuredHeight / 2.0f;
-        float halfW = measuredWidth / 2.0f;
-        canvas.drawLine(0, halfH, measuredWidth, halfH, paintBorder);
-
-        int startX = 0;
-        //绘制每一个圆
-        for (int i = 0; i < totalStep; i++) {
-            canvas.drawCircle(startX + circleRadius, halfH, circleRadius, paintCircleNormal);
-            startX = (circleRadius * 2) + lineWidth;//下一个起始点
-
-        }
-
-    }
-
-}
+package com.GuLiSir.progressbar;import android.content.Context;import android.graphics.Canvas;import android.graphics.Color;import android.graphics.Paint;import android.text.TextUtils;import android.util.AttributeSet;import android.view.View;public class ProgressStepScrollBar extends View {    /**     * 准备到下一个进度     */    private int perpareProgressIndex = -1;    public ProgressStepScrollBar(Context context) {        super(context);        init(null);    }    public ProgressStepScrollBar(Context context, AttributeSet attrs) {        super(context, attrs);        init(attrs);    }    public ProgressStepScrollBar(Context context, AttributeSet attrs, int defStyleAttr) {        super(context, attrs, defStyleAttr);        init(attrs);    }    public ProgressStepScrollBar(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {        super(context, attrs, defStyleAttr, defStyleRes);        init(attrs);    }    /**     * 进度画笔     */    private Paint paintCircleNormal;    private Paint paintCirclePast;    private Paint paintCircleFuture;    /**     * 边框画笔     */    private Paint paintBorder;    private Paint paintText;    private int circleRadius = 60;    private int circleRadiusBigD = 20;    private int circleRadiusSmall = 10;    private int lineWidth = 50;    /**     * 总步数     */    private int totalStep = 10;    /**     * 当前所在的步数     */    private int currentStep = -1;    private int progressBGColor = DEFAULT_PROGRESS_BG_COLOR;    /**     * 描边颜色     */    private int borderColor = DEFAULT_BORDER_COLOR;    /**     * 文字大小     */    private int textSize = DEFAULT_PROGRESS_TEXT_SIZE;    //以下是定义默认值    public static final int DEFAULT_BORDER_COLOR = Color.BLACK;    public static final int DEFAULT_CIRCLE_NORMAL_COLOR = Color.RED;    public static final int DEFAULT_PROGRESS_TEXT_COLOR = Color.BLUE;    public static final int DEFAULT_PROGRESS_TEXT_SIZE = 30;    public static final int DEFAULT_PROGRESS_BG_COLOR = Color.WHITE;    private void init(AttributeSet attrs) {        int circleNormalColor = DEFAULT_CIRCLE_NORMAL_COLOR;        int progressTextColor = DEFAULT_PROGRESS_TEXT_COLOR;        if (attrs != null) {            // TODO: 2019/11/11//            TypedArray typedArray = getContext().obtainStyledAttributes(attrs, R.styleable.TextProgressbar);//            circleNormalColor = typedArray.getColor(R.styleable.TextProgressbar_progress_color, DEFAULT_CIRCLE_NORMAL_COLOR);//            progressTextColor = typedArray.getColor(R.styleable.TextProgressbar_progress_text_color, DEFAULT_PROGRESS_TEXT_COLOR);//            textSize = typedArray.getDimensionPixelSize(R.styleable.TextProgressbar_progress_text_size, DEFAULT_PROGRESS_TEXT_SIZE);//            borderColor = typedArray.getColor(R.styleable.TextProgressbar_progress_border_color, DEFAULT_BORDER_COLOR);//            progressBGColor = typedArray.getColor(R.styleable.TextProgressbar_progress_bg_color, DEFAULT_PROGRESS_BG_COLOR);//            typedArray.recycle();        }        paintBorder = new Paint();        paintBorder.setAntiAlias(true);        paintBorder.setColor(borderColor);        paintBorder.setStyle(Paint.Style.STROKE);        paintCircleNormal = new Paint();        paintCircleNormal.setAntiAlias(true);        paintCircleNormal.setColor(circleNormalColor);        paintCircleNormal.setStyle(Paint.Style.FILL);        paintCirclePast = new Paint();        paintCirclePast.setAntiAlias(true);        paintCirclePast.setColor(Color.GRAY);        paintCirclePast.setStyle(Paint.Style.FILL);        paintCircleFuture = new Paint();        paintCircleFuture.setAntiAlias(true);        paintCircleFuture.setColor(Color.GREEN);        paintCircleFuture.setStyle(Paint.Style.FILL);        paintText = new Paint();        paintText.setAntiAlias(true);        paintText.setColor(progressTextColor);        paintText.setTextSize(textSize);    }    @Override    protected void onDraw(Canvas canvas) {        super.onDraw(canvas);        int measuredHeight = getMeasuredHeight();        int measuredWidth = getMeasuredWidth();        float halfH = measuredHeight / 2.0f;        float halfW = measuredWidth / 2.0f;        canvas.drawLine(0, halfH, measuredWidth, halfH, paintBorder);        long stepDTime = System.currentTimeMillis() - stepStartAnimationTime;        float v = stepDTime / 1000.0f;//切换进度动画百分比        v = Math.min(v, 1.0f);        int startX = 0;        //绘制每一个圆        for (int i = 0; i < totalStep; i++) {            if (i == lastStepIndex) {                //上一个点  需要缩小                // TODO: 2019/11/27            } else if (i < currentStep) {                //已经走过的点                canvas.drawCircle(startX + circleRadius, halfH, circleRadius, paintCirclePast);            } else if (i == currentStep) {                //当前点                canvas.drawCircle(startX + circleRadius, halfH, circleRadius + (v * circleRadiusBigD), paintCircleNormal);            } else if (i == perpareProgressIndex) {                canvas.drawCircle(startX + circleRadius, halfH, circleRadius, paintCircleNormal);                canvas.drawCircle(startX + circleRadius, halfH, circleRadiusSmall, paintCircleFuture);//内圆            } else {                //未走过的点                canvas.drawCircle(startX + circleRadius, halfH, circleRadius, paintCircleFuture);            }            drawText(canvas, String.valueOf(i), startX + circleRadius, halfH, paintText);            startX += (circleRadius * 2) + lineWidth;//下一个起始点        }        if (v < 1.0f) {            invalidate();        }    }    /**     * 绘制居中文字     *     * @param x 中心点x     * @param y 中心点y     */    private static void drawText(Canvas canvas, String str, float x, float y, Paint paintText) {        // 绘制居中文字        if (!TextUtils.isEmpty(str)) {            //需要显示文字            // 文字宽            float textWidth = paintText.measureText(str, 0, str.length());            // 文字baseline在y轴方向的位置            float baseLineY = Math.abs(paintText.ascent() + paintText.descent()) / 2;            canvas.drawText(str, 0, str.length(), -textWidth / 2 + x, baseLineY + y, paintText);        }    }    public void prepareTo(int progressIndex) {        // TODO: 2019/11/27 加异常,检查越界        perpareProgressIndex = progressIndex;        invalidate();    }    private long lastStepIndex;//上一个步骤的位置    private long stepStartAnimationTime;    private long perpareStartAnimationTime;    public void stepTo() {        // TODO: 2019/11/27 加异常,检查越界        lastStepIndex = currentStep;        currentStep = perpareProgressIndex;        stepStartAnimationTime = System.currentTimeMillis();        invalidate();    }}
